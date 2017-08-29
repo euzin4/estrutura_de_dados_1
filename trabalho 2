@@ -32,4 +32,27 @@ int main()
 }
 
 
-exercicio 2
+exercicio 2(TERMINAR)
+
+#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct
+{
+    char nome[50];
+    char endereco[100];
+    int matricula;
+} estudante;
+
+int main()
+{
+    int val,*p;
+
+    scanf("%d",&val);
+    p=(int *)malloc(val*sizeof(int));
+    if (!p)
+    {
+        printf ("ERRO: memoria Insuficiente");
+        exit;
+    }
+}
