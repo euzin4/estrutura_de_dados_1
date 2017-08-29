@@ -1,0 +1,35 @@
+1)Implemente um programa, para alocar memória para um 
+vetor. O número de posições do vetor será indicado via 
+teclado, assim como o conteúdo das posições. Após a 
+atribuição de valores às posições do vetor, o programa 
+deve imprimir(na tela) as posições e seus conteúdos.
+
+2) Altere o programa para armazenar uma estrutura em 
+cada posição do vetor.
+typedef struct{
+char nome[50];
+char endereco[100];
+int matricula;
+} estudante;
+
+
+RESPOSTAS:
+exercicio 1
+
+#include <stdio.h>
+#include <stdlib.h>
+
+int main()
+{
+    int val,*p;
+
+    scanf("%d",&val);
+    p=(int *)malloc(val*sizeof(int));
+    if (!p){
+        printf ("ERRO: memoria Insuficiente");
+        exit;
+    }
+}
+
+
+exercicio 2
