@@ -89,3 +89,40 @@ int main()
         printf("\n%d",x[i].matricula);
     }
 }
+
+exercicio 3:
+
+#include <stdio.h>
+#include <stdlib.h>
+
+int main()
+{
+    int *x,i=0,a,j;
+    x = (int*) calloc(5,sizeof(int));
+    if (!x){
+        printf ("ERRO: memoria insuficiente");
+        exit;
+    }
+    do{
+        if ((i)%5==0 && i!=0){
+            int *xnew=realloc(x,(i+5)*sizeof(int));
+            if(xnew){
+                x=xnew;
+                printf("memoria realocada\n");
+            }
+            else{
+                printf("memoria insuficiente\n");
+                return 0;
+            }
+        }
+        scanf("%d",(x+i));
+        a=*(x+i);
+        i++;
+    }while(a!=0);
+    for(j=0;j<i;j++){
+        printf("\n%d",*(x+j));
+    }
+}
+
+exercicio 4:
+
