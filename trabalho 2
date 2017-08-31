@@ -21,14 +21,19 @@ exercicio 1
 
 int main()
 {
-    int val,*p;
-
-    scanf("%d",&val);
-    p=(int *)malloc(val*sizeof(int));
-    if (!p){
-        printf ("ERRO: memoria Insuficiente");
+    int *x,val,i;
+    scanf("%d", &val);
+    x =(int *) malloc(sizeof(int) * val);
+    if (!x)
+    {
+        printf ("ERRO: memoria insuficiente");
         exit;
     }
+    for(i=0; i<val; i++)
+        scanf("%d",&x[i]);
+
+    for(i=0; i<val; i++)
+        printf("\n%d",x[i]);
 }
 
 
