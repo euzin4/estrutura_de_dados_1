@@ -8,19 +8,19 @@ typedef struct _pilha{
 }tp_pilha;
 
 void push(tp_pilha *pil){
-    system("cls");
+    system("clear");
     if (pil->topo < 4){
         pil->topo+=1;
         printf("valor: ");
         scanf("%d",&pil->info[pil->topo]);
-        system("cls");
+        system("clear");
     }else{
         printf("Pilha cheia!\n\n");
     }
     menu(pil);
 }
 void pop(tp_pilha *pil){
-    system("cls");
+    system("clear");
     if (pil->topo==-1){
         printf("A pilha esta vazia!\n\n");
     }else{
@@ -29,7 +29,7 @@ void pop(tp_pilha *pil){
     menu(pil);
 }
 void display(tp_pilha *pil){
-    system("cls");
+    system("clear");
     int i;
     if (pil->topo==-1){
         printf("A pilha esta vazia!\n\n");
@@ -64,7 +64,7 @@ void menu(tp_pilha *pil){
         printf("Ate logo!\n");
         break;
     default:
-        system("cls");
+        system("clear");
         printf("Escolha uma opcao valida\n");
         aux(pil);
         break;
