@@ -1,7 +1,6 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include<string.h>
-#include<stdio_ext.h>
 #define TAM 50
 typedef struct _produto{//criação de uma struct tipo produto
 int cod;
@@ -11,22 +10,28 @@ float preco;
 typedef struct _pilha{//criação de uma struct tipo pilha
 tp_produto *info;
 int topo;
+int qnt;
 }tp_pilha;
 
 void push(tp_pilha *pil){
-    system("clear");
-    if (pil->topo < 4){
+    system("cls");
+    if (pil->topo < pil->qnt-1){
         pil->topo+=1;
-        printf("valor: ");
-        scanf("%d",&pil->info+pil->topo)->cod]);
-        system("clear");
+        printf("codigo: ");
+        scanf("%d",&pil->info[pil->topo].cod);
+        getchar();
+        printf("nome: ");
+        fgets(pil->info[pil->topo].nome, 49, stdin);
+        printf("preco:");
+        scanf("%f",&pil->info[pil->topo].preco);
+        system("cls");
     }else{
         printf("Pilha cheia!\n\n");
     }
     menu(pil);
 }
 void pop(tp_pilha *pil){
-    system("clear");
+    system("cls");
     if (pil->topo==-1){
         printf("A pilha esta vazia!\n\n");
     }else{
@@ -35,14 +40,17 @@ void pop(tp_pilha *pil){
     menu(pil);
 }
 void display(tp_pilha *pil){
-    system("clear");
+    system("cls");
     int i;
     if (pil->topo==-1){
         printf("A pilha esta vazia!\n\n");
     }else{
-        printf("Valores:\n");
         for(i=0;i<=pil->topo;i++){
-            printf("%d\n",pil->info[i]);
+            printf("item %d\n",i);
+            printf("codigo: %d\n",pil->info[i].cod);
+            printf("nome: %s",pil->info[i].nome);
+            printf("preco: %0.2f\n",pil->info[i].preco);
+            printf("\n");
         }
         printf("\n");
     }
@@ -69,20 +77,22 @@ void menu(tp_pilha *pil){
         printf("Ate logo!\n");
         break;
     default:
-        system("clear");
+        system("cls");
         printf("Escolha uma opcao valida\n");
         aux(pil);
         break;
     }
 }
 int main(){
-    int qnt;
     tp_pilha *pil;
+    int qntd;
 
     printf("quantos produtos deseja inserir na pilha?\n");
-    scanf("%d",&qnt);
+    scanf("%d",&qntd);
+    system("cls");
     pil=(tp_pilha*)malloc(sizeof(tp_pilha));
-    pil->info=(tp_produto*)malloc(qnt*sizeof(tp_produto));
+    pil->info=(tp_produto*)malloc(pil->qnt*sizeof(tp_produto));
+    pil->qnt=qntd;
     pil->topo= -1;
     menu(pil);
     return 0;
