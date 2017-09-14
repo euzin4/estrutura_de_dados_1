@@ -12,7 +12,7 @@ typedef struct nodo
 {
     tp_produto produto;
     struct nodo *prox;
-    int tam;
+    int cont;
 } tp_nodo;
 
 void dados(tp_nodo *nodo)
@@ -27,10 +27,14 @@ void dados(tp_nodo *nodo)
 }
 void push(tp_nodo *nodo)
 {
+    if(nodo->cont > 0){
+        nodo->prox=(tp_nodo*)malloc(nodo->cont*sizeof(tp_nodo));
+    }
     dados(nodo);
     tp_nodo *novo=(tp_nodo*)malloc(sizeof(tp_nodo));
     nodo->prox=novo;
-    menu(nodo);                                     //parei aqui<----------------
+    nodo->cont++;
+    menu(nodo);
 }
 void aux()
 {
@@ -67,6 +71,6 @@ int main()
 
     nodo=(tp_nodo*) malloc(sizeof(tp_nodo));
     nodo->prox=NULL;
-    nodo->tam=0;
+    nodo->cont=0;
     menu(nodo);
 }
