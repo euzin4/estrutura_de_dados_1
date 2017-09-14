@@ -30,7 +30,7 @@ void push(tp_nodo *nodo)
     dados(nodo);
     tp_nodo *novo=(tp_nodo*)malloc(sizeof(tp_nodo));
     nodo->prox=novo;
-    menu(nodo);
+    menu(nodo);                                     //parei aqui<----------------
 }
 void aux()
 {
