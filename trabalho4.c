@@ -12,35 +12,75 @@ typedef struct nodo
 {
     tp_produto produto;
     struct nodo *prox;
-    int cont;
 } tp_nodo;
 
-void dados(tp_nodo *nodo)
+void push(tp_nodo *inicio,tp_nodo *fim)
 {
-    printf("codigo: ");
-    scanf("%d",&nodo->produto.codigo);
-    printf("nome: ");
+    system("clear");
+    printf("Codigo:");
+    scanf("%d",&fim->produto.codigo);
+    printf("Nome:");
     getchar();
-    fgets(nodo->produto.nome,99,stdin);
-    printf("preco: ");
-    scanf("%f",&nodo->produto.preco);
+    fgets(fim->produto.nome,99,stdin);
+    printf("Preco:");
+    scanf("%f",&fim->produto.preco);
+    fim->prox=(tp_nodo*)malloc(sizeof(tp_nodo));
+    fim=fim->prox;
+    fim->prox=NULL;
+    system("clear");
+    menu(inicio,fim);
 }
-void push(tp_nodo *nodo)
-{
-    if(nodo->cont > 0){
-        nodo->prox=(tp_nodo*)malloc(nodo->cont*sizeof(tp_nodo));
+void pop(tp_nodo *inicio,tp_nodo *fim){
+    int a;
+    tp_nodo *anterior;
+
+    system("clear");
+    printf("Digite o codigo do produto que sera excluido:");
+    scanf("%d",&a);
+    if (inicio->produto.codigo==a){
+        inicio=inicio->prox;
+    }else{
+        fim=inicio;
+        while(fim->produto.codigo!=a&&fim->prox!=NULL){
+            anterior=fim;
+            fim=fim->prox;
+        }
+        if(fim->produto.codigo==a){
+            anterior->prox=fim->prox;
+        }else{
+            printf("o codigo de produto nao esta na lista");
+        }
     }
-    dados(nodo);
-    tp_nodo *novo=(tp_nodo*)malloc(sizeof(tp_nodo));
-    nodo->prox=novo;
-    nodo->cont++;
-    menu(nodo);
+    system("clear");
+    printf("Item excluido!\n\n");
+    menu(inicio,fim);
 }
-void aux()
+void display(tp_nodo *inicio,tp_nodo *fim)
 {
-    menu();
+    system("clear");
+    if(inicio->prox==NULL)
+    {
+        printf("Lista vazia!\n\n");
+    }
+    else
+    {
+        fim=inicio;
+        printf("Lista:\n\n");
+        while(fim->prox != NULL)
+        {
+            printf("Codigo: %d\n",fim->produto.codigo);
+            printf("Nome: %s",fim->produto.nome);
+            printf("Preco: R$%0.1f\n\n",fim->produto.preco);
+            fim=fim->prox;
+        }
+    }
+    menu(inicio,fim);
 }
-void menu(tp_nodo *nodo)
+void aux(tp_nodo *inicio,tp_nodo *fim)
+{
+    menu(inicio,fim);
+}
+void menu(tp_nodo *inicio,tp_nodo *fim)
 {
     int opc;
 
@@ -49,28 +89,27 @@ void menu(tp_nodo *nodo)
     switch(opc)
     {
     case 1:
-        push(nodo);
+        push(inicio,fim);
         break;
     case 2:
-//            pop(nodo);
+        pop(inicio,fim);
         break;
     case 3:
-//            display(nodo);
+        display(inicio,fim);
         break;
     case 4:
         printf("\nate logo!\n");
         break;
     default:
         printf("opcao invalida!\n");
-        aux();
+        aux(inicio,fim);
     }
 }
 int main()
 {
-    tp_nodo *nodo;
+    tp_nodo *inicio,*fim;
 
-    nodo=(tp_nodo*) malloc(sizeof(tp_nodo));
-    nodo->prox=NULL;
-    nodo->cont=0;
-    menu(nodo);
+    inicio=(tp_nodo*)malloc(sizeof(tp_nodo));
+    fim=inicio;
+    menu(inicio,fim);
 }
