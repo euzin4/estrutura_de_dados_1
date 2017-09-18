@@ -30,29 +30,46 @@ void push(tp_nodo *inicio,tp_nodo *fim)
     system("clear");
     menu(inicio,fim);
 }
-void pop(tp_nodo *inicio,tp_nodo *fim){
+void pop(tp_nodo *inicio,tp_nodo *fim)
+{
     int a;
     tp_nodo *anterior;
 
     system("clear");
-    printf("Digite o codigo do produto que sera excluido:");
-    scanf("%d",&a);
-    if (inicio->produto.codigo==a){
-        inicio=inicio->prox;
-    }else{
-        fim=inicio;
-        while(fim->produto.codigo!=a&&fim->prox!=NULL){
-            anterior=fim;
-            fim=fim->prox;
+    if(inicio->prox==NULL)
+    {
+        printf("Lista vazia!\n\n");
+    }
+    else
+    {
+        system("clear");
+        printf("Digite o codigo do produto que sera excluido: ");
+        scanf("%d",&a);
+        system("clear");
+        if (inicio->produto.codigo==a)
+        {
+            inicio=inicio->prox;
+            printf("Item excluido!\n\n");
         }
-        if(fim->produto.codigo==a){
-            anterior->prox=fim->prox;
-        }else{
-            printf("o codigo de produto nao esta na lista");
+        else
+        {
+            fim=inicio;
+            while(fim->produto.codigo!=a&&fim->prox!=NULL)
+            {
+                anterior=fim;
+                fim=fim->prox;
+            }
+            if(fim->produto.codigo==a)
+            {
+                anterior->prox=fim->prox;
+                printf("Item excluido!\n\n");
+            }
+            else
+            {
+                printf("Esse codigo nao esta na lista.\n\n");
+            }
         }
     }
-    system("clear");
-    printf("Item excluido!\n\n");
     menu(inicio,fim);
 }
 void display(tp_nodo *inicio,tp_nodo *fim)
@@ -70,7 +87,7 @@ void display(tp_nodo *inicio,tp_nodo *fim)
         {
             printf("Codigo: %d\n",fim->produto.codigo);
             printf("Nome: %s",fim->produto.nome);
-            printf("Preco: R$%0.1f\n\n",fim->produto.preco);
+            printf("Preco: R$%0.2f\n\n",fim->produto.preco);
             fim=fim->prox;
         }
     }
@@ -98,10 +115,11 @@ void menu(tp_nodo *inicio,tp_nodo *fim)
         display(inicio,fim);
         break;
     case 4:
-        printf("\nate logo!\n");
+        printf("\nAte logo!");
         break;
     default:
-        printf("opcao invalida!\n");
+        system("clear");
+        printf("Opcao invalida!\n\n");
         aux(inicio,fim);
     }
 }
