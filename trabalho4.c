@@ -130,4 +130,5 @@ int main()
     inicio=(tp_nodo*)malloc(sizeof(tp_nodo));
     fim=inicio;
     menu(inicio,fim);
+    return 0;
 }
