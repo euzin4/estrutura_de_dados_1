@@ -64,7 +64,7 @@ int main()
 
     novo=(TpLista*) malloc(sizeof(TpLista));
     novo->last=novo->first;
-    novo->last=NULL;
+    novo->last=NULL;        //acho que isso está causando erros de segmentação
     novo->nItens=0;
 
     novo->last->info.codigo=1;
