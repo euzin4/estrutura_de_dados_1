@@ -20,13 +20,78 @@ typedef struct _lista
     TpNodo *last;
 } TpLista;
 
-void push(TpLista *novo){
+void push(TpLista *novo)
+{
+    TpNodo *aux;
+
+    system("clear");
     printf("Codigo: ");
     scanf("%d",&novo->last->info.codigo);
     printf("Nome: ");
+    getchar();
     fgets(novo->last->info.nome,19,stdin);
     printf("Preco: ");
     scanf("%f",&novo->last->info.preco);
+    aux=novo->last;
+    novo->last->next=(TpNodo*) malloc(sizeof(TpNodo));
+    novo->last=novo->last->next;
+    novo->last->prev=aux;
+    novo->nItens+=1;
+    system("clear");
+    menu(novo);
+}
+void display(TpLista *novo)
+{
+    int i=0;
+    system("clear");
+    novo->last=novo->first;
+    if(novo->last->next==NULL)
+    {
+        printf("Lista vazia!\n\n");
+    }
+    else
+    {
+        printf("Lista\n\n");
+        while(novo->last->next!=NULL && novo->nItens!=i)
+        {
+            printf("Codigo: %d\n",novo->last->info.codigo);
+            printf("Nome: %s",novo->last->info.nome);
+            printf("Preco: R$%0.2f\n\n",novo->last->info.preco);
+            novo->last=novo->last->next;
+            i++;
+        }
+    }
+    menu(novo);
+}
+void pop(TpLista *novo)
+{
+    int aux,i=0;
+    TpNodo *ant;
+
+    system("clear");
+    if(novo->first->next==NULL){
+        printf("Lista vazia!\n\n");
+    }else{
+        printf("Digite o codigo do produto que sera excluido: ");
+        scanf("%d",&aux);
+        if(novo->first->info.codigo==aux){
+            novo->first=novo->first->next;
+            novo->first->prev=NULL;
+        }else{
+            novo->last=novo->first;
+            while(novo->last->info.codigo!=aux && novo->nItens!=i){
+                ant=novo->last;
+                novo->last=novo->last->next;
+            }
+            if(novo->last->info.codigo==aux){
+                ant->next=novo->last->next;
+
+            }else{
+                printf("Este item nao esta na lista!\n");
+            }
+        }
+    }
+    menu(novo);
 }
 void aux(TpLista *novo)
 {
@@ -44,10 +109,10 @@ void menu(TpLista *novo)
         push(novo);
         break;
     case 2:
-        //pop(novo);
+        pop(novo);  //terminar
         break;
     case 3:
-        //display(novo);
+        display(novo);
         break;
     case 4:
         printf("\nAte logo!");
@@ -63,12 +128,9 @@ int main()
     TpLista *novo;
 
     novo=(TpLista*) malloc(sizeof(TpLista));
+    novo->first=(TpNodo*) malloc(sizeof(TpNodo));
     novo->last=novo->first;
-    novo->last=NULL;        //acho que isso está causando erros de segmentação
+    novo->last->prev=NULL;
     novo->nItens=0;
-
-    novo->last->info.codigo=1;
-    printf("%d",novo->last->info.codigo);
-
     menu(novo);
 }
