@@ -67,6 +67,7 @@ void pop(TpLista *novo)
 {
     int aux,i=0;
     TpNodo *ant;
+    TpNodo *auxi;
 
     system("clear");
     if(novo->first->next==NULL){
@@ -85,7 +86,8 @@ void pop(TpLista *novo)
             }
             if(novo->last->info.codigo==aux){
                 ant->next=novo->last->next;
-
+                auxi=novo->last->prev;
+                novo->last->prev=auxi->prev;
             }else{
                 printf("Este item nao esta na lista!\n");
             }
@@ -109,7 +111,7 @@ void menu(TpLista *novo)
         push(novo);
         break;
     case 2:
-        pop(novo);  //terminar
+        pop(novo);
         break;
     case 3:
         display(novo);
