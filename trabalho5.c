@@ -36,6 +36,7 @@ void push(TpLista *novo)
     novo->last->next=(TpNodo*) malloc(sizeof(TpNodo));
     novo->last=novo->last->next;
     novo->last->prev=aux;
+    novo->last->next=NULL;
     novo->nItens+=1;
     system("clear");
     menu(novo);
@@ -51,7 +52,7 @@ void display(TpLista *novo)
     }
     else
     {
-        printf("Lista\n\n");
+        printf("Lista: %d produto(s)\n\n",novo->nItens);
         while(novo->last->next!=NULL && novo->nItens!=i)
         {
             printf("Codigo: %d\n",novo->last->info.codigo);
@@ -78,9 +79,12 @@ void pop(TpLista *novo)
         if(novo->first->info.codigo==aux){
             novo->first=novo->first->next;
             novo->first->prev=NULL;
+            novo->nItens-=1;
+            system("clear");
+            printf("Item excluido!\n\n");
         }else{
             novo->last=novo->first;
-            while(novo->last->info.codigo!=aux && novo->nItens!=i){
+            while(novo->last->info.codigo!=aux && novo->last->next!=NULL){
                 ant=novo->last;
                 novo->last=novo->last->next;
             }
@@ -88,8 +92,12 @@ void pop(TpLista *novo)
                 ant->next=novo->last->next;
                 auxi=novo->last->prev;
                 novo->last->prev=auxi->prev;
+                novo->nItens-=1;
+                system("clear");
+                printf("Item excluido!\n\n");
             }else{
-                printf("Este item nao esta na lista!\n");
+                system("clear");
+                printf("Este item nao esta na lista!\n\n");
             }
         }
     }
@@ -133,6 +141,7 @@ int main()
     novo->first=(TpNodo*) malloc(sizeof(TpNodo));
     novo->last=novo->first;
     novo->last->prev=NULL;
+    novo->last->next=NULL;
     novo->nItens=0;
     menu(novo);
 }
