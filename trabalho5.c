@@ -90,8 +90,8 @@ void pop(TpLista *novo)
             }
             if(novo->last->info.codigo==aux){
                 ant->next=novo->last->next;
-                auxi=novo->last->prev;
-                novo->last->prev=auxi->prev;
+                auxi=novo->last->next;
+                auxi->prev=novo->last->prev;
                 novo->nItens-=1;
                 system("clear");
                 printf("Item excluido!\n\n");
