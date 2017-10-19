@@ -123,6 +123,7 @@ void menu(tp_nodo *inicio,tp_nodo *fim)
         aux(inicio,fim);
     }
 }
+
 int main()
 {
     tp_nodo *inicio,*fim;
