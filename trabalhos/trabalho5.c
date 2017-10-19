@@ -133,6 +133,7 @@ void menu(TpLista *novo)
         aux(novo);
     }
 }
+
 int main()
 {
     TpLista *novo;
