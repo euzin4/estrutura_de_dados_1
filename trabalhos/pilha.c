@@ -45,7 +45,6 @@ void display(tp_pilha *pil){
 void aux(tp_pilha *pil){
     menu(pil);
 }
-
 void menu(tp_pilha *pil){
     int menu;
     printf("MENU\n1-Inserir dados\n2-Excluir dados\n3-Exibir dados da pilha\n4-Sair\n");
