@@ -83,6 +83,7 @@ void menu(tp_pilha *pil){
         break;
     }
 }
+
 int main(){
     tp_pilha *pil;
     int qntd;
