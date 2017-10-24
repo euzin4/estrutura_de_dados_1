@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-int bubble(int *vet){
+void bubble(int *vet){
     int i,j,aux;
 
     for(i=0; i<6; i++){
@@ -15,7 +15,6 @@ int bubble(int *vet){
             }
         }
     }
-    return *vet;
 }
 void display(int *vet){
     int i;
@@ -26,10 +25,11 @@ void display(int *vet){
     }
     printf("\n");
 }
+
 int main(){
     int vet[6]= {4,9,2,1,3,7};
 
     display(vet);
-    *vet=bubble(vet);
+    bubble(vet);
     display(vet);
 }
