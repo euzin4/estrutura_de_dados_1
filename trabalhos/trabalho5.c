@@ -1,27 +1,23 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-typedef struct _produto
-{
+typedef struct _produto{
     int codigo;
     char nome[20];
     float preco;
 } TpProduto;
-typedef struct _nodo
-{
+typedef struct _nodo{
     TpProduto info;
     struct _nodo *next;
     struct _nodo *prev;
 } TpNodo;
-typedef struct _lista
-{
+typedef struct _lista{
     int nItens;
     TpNodo *first;
     TpNodo *last;
 } TpLista;
 
-void push(TpLista *novo)
-{
+void push(TpLista *novo){
     TpNodo *aux;
 
     system("clear");
@@ -41,20 +37,16 @@ void push(TpLista *novo)
     system("clear");
     menu(novo);
 }
-void display(TpLista *novo)
-{
+void display(TpLista *novo){
     int i=0;
     system("clear");
     novo->last=novo->first;
-    if(novo->last->next==NULL)
-    {
+    if(novo->last->next==NULL){
         printf("Lista vazia!\n\n");
     }
-    else
-    {
+    else{
         printf("Lista: %d produto(s)\n\n",novo->nItens);
-        while(novo->last->next!=NULL && novo->nItens!=i)
-        {
+        while(novo->last->next!=NULL && novo->nItens!=i){
             printf("Codigo: %d\n",novo->last->info.codigo);
             printf("Nome: %s",novo->last->info.nome);
             printf("Preco: R$%0.2f\n\n",novo->last->info.preco);
@@ -64,8 +56,7 @@ void display(TpLista *novo)
     }
     menu(novo);
 }
-void pop(TpLista *novo)
-{
+void pop(TpLista *novo){
     int aux,i=0;
     TpNodo *ant;
     TpNodo *auxi;
@@ -103,18 +94,15 @@ void pop(TpLista *novo)
     }
     menu(novo);
 }
-void aux(TpLista *novo)
-{
+void aux(TpLista *novo){
     menu(novo);
 }
-void menu(TpLista *novo)
-{
+void menu(TpLista *novo){
     int opc;
 
     printf("1-inserir produto na lista\n2-excluir produto da lista\n3-listar dados dos produtos da lista\n4-sair\n");
     scanf("%d",&opc);
-    switch(opc)
-    {
+    switch(opc){
     case 1:
         push(novo);
         break;
@@ -134,8 +122,7 @@ void menu(TpLista *novo)
     }
 }
 
-int main()
-{
+int main(){
     TpLista *novo;
 
     novo=(TpLista*) malloc(sizeof(TpLista));
