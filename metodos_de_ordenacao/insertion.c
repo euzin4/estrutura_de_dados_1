@@ -1,31 +1,38 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-int insertion(int *vet){
-    int i,aux;
+void insertion(int *vet){
+    int cont,pos,aux;
 
-    for(i=1;i<6;i++){
-        aux=vet[i];
-        while(vet[i]<vet[i-1]){
-            aux=vet[i-1];
-            vet[i-1]=vet[i];
-            vet[i]=aux;
+    for(cont=1;cont<5;cont++){  // cont começa na posição 1 do vetor e vai até a ultima posição;
+        pos = cont; // pos recebe a posição que está passando no "for";
+        while (vet[pos]<vet[pos-1]) // Enquanto o valor que está passando na posição "pos" for menor que a posição "pos" menos 1, ocorre a troca;
+        { // Ocorre a troca;
+            aux=vet[pos];
+            vet[pos]=vet[pos-1];
+            vet[pos-1]=aux;
+            pos--; // pos decrementa 1;
+            if (pos == 0){ // Quando "pos" chegar na posição 0, primeira posição do vetor, o laço while para;
+                break;
+            }
         }
+
     }
 }
 void display(int *vet){
     int i;
 
-    for(i=0; i<6; i++){
-        printf("%d ",vet[i]);
+    for(i=0;i<5;i++){
+        printf("%d",*(vet+i));
     }
     printf("\n");
 }
 
-int main(){
-    int vet[6]= {4,9,2,1,3,7};
+int main()
+{
+    int vet[5]={9,7,2,4,5};
 
     display(vet);
-    insertion(vet);         //função
+    insertion(vet);
     display(vet);
 }
