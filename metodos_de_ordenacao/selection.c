@@ -1,23 +1,21 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void selection(int *vet){
-    int menor,cont,temp,troca;
-
-    for(cont=0;cont<4;cont++){ //Percorre todo o vetor até 4, pois a ultima posição não precisa testar pois ja estara ordenada;
-        menor=cont; // Menor valor recebe a posição que está passando;
-
-        for (temp=cont+1;temp<5;temp++){ // Percorre o vetor da posição cont+1 até o final;
-            if (vet[temp]<vet[menor]){ // Testa se a posição que está passando é menor que o menor valor;
-                menor=temp; // menor recebe a posição do menor valor;
-            }
-        }
-        if (menor!=cont){ // Se a posição for diferente da que está passando, ocorre a troca;
-            troca=vet[cont];
-            vet[cont]=vet[menor];
-            vet[menor]=troca;
-        }
-    }
+void selection(int *vet, int tam) {
+  int i, j, min, aux;
+  for (i = 0; i < (tam-1); i++)
+  {
+     min = i;
+     for (j = (i+1); j < tam; j++) {
+       if(vet[j] < vet[min])
+         min = j;
+     }
+     if (vet[i] != vet[min]) {
+       aux = vet[i];
+       vet[i] = vet[min];
+       vet[min] = aux;
+     }
+  }
 }
 void display(int *vet){
     int i;
@@ -31,8 +29,10 @@ void display(int *vet){
 int main()
 {
     int vet[5]={3,7,1,8,1};
+    int tam=5;
 
     display(vet);
-    selection(vet);
+    selection(vet,tam);
     display(vet);
+    return 0;
 }
