@@ -18,6 +18,60 @@ typedef struct _lista{
     TpNodo *last;
 } TpLista;
 
+void selection(TpLista *novo){
+    int h,h1,h1min,i,j,atual;
+    int min,auxcod;
+    char nome[20],auxnome[20];
+    float preco,auxpreco;
+
+    if(novo->nItens > 1){
+        for (i=0; i < novo->nItens-1;i++){
+            novo->last=novo->first;
+            for(h=0;h<i;h++){   //volta para o nodo que esta sendo testado
+                novo->last=novo->last->next;
+            }
+            min=novo->last->info.codigo;    //copia os dados do nodo atual
+            strcpy(nome,novo->last->info.nome);
+            preco=novo->last->info.preco;
+            for (j=(i+1);j < novo->nItens;j++){
+                novo->last=novo->first;
+                for(h1=0;h1<j;h1++){    //passa pelos nodos para achar o menor valor
+                    novo->last = novo->last->next;
+                }
+                auxcod=novo->last->info.codigo;
+                if(auxcod < min){   //copia os dados do nodo com codigo menor
+                    min=auxcod;
+                    strcpy(auxnome,novo->last->info.nome);
+                    auxpreco=novo->last->info.preco;
+                    h1min=h1;
+                }
+            }
+            novo->last=novo->first;
+            for(h=0;h<i;h++){   //volta para o nodo que esta sendo testado
+                novo->last=novo->last->next;
+            }
+            atual=novo->last->info.codigo;
+            if (atual != min){  //passa os valores do menor codigo para o nodo atual
+                novo->last->info.codigo=min;
+                strcpy(novo->last->info.nome,auxnome);
+                novo->last->info.preco=auxpreco;
+                novo->last=novo->first;
+                for(h=0;h<h1min;h++){
+                    novo->last=novo->last->next;
+                }   //passa os dados do nodo atual para onde estava o menor codigo
+                novo->last->info.codigo=atual;
+                strcpy(novo->last->info.nome,nome);
+                novo->last->info.preco=preco;
+            }
+        }
+        system("cls");
+        printf("Lista ordenada!\n\n");
+    }else{
+        system("cls");
+        printf("Itens insuficientes!\n\n");
+    }
+    menu(novo);
+}
 void insertion(TpLista *novo){
     int i,j;
     int codigo;
@@ -50,7 +104,7 @@ void insertion(TpLista *novo){
         printf("Lista ordenada!\n\n");
     }else{
         system("cls");
-        printf("Dados insuficientes!\n\n");
+        printf("Itens insuficientes!\n\n");
     }
     menu(novo);
 }
@@ -138,9 +192,6 @@ void pop(TpLista *novo){
     }
     menu(novo);
 }
-void aux(TpLista *novo){
-    menu(novo);
-}
 void menu(TpLista *novo){
     int opc;
 
@@ -149,8 +200,8 @@ void menu(TpLista *novo){
     printf("2-excluir produto da lista\n");
     printf("3-listar dados dos produtos da lista\n");
     printf("4-ordenar via insertion sort\n");
-    printf("5-ordenar via selection sort\n");   //fazer
-    printf("6-ordenar via quick sort ou merge sort\n");   //fazer
+    printf("5-ordenar via selection sort\n");
+    //printf("6-ordenar via quick sort ou merge sort\n");
     printf("7-sair\n");
     scanf("%d",&opc);
     switch(opc){
@@ -166,13 +217,16 @@ void menu(TpLista *novo){
     case 4:
         insertion(novo);
         break;
+    case 5:
+        selection(novo);
+        break;
     case 7:
         printf("\nAte logo!");
         break;
     default:
         system("cls");
         printf("Opcao invalida!\n\n");
-        aux(novo);
+        menu(novo);
     }
 }
 
@@ -187,4 +241,6 @@ int main(){
     novo->last->info.codigo=0;
     novo->nItens=0;
     menu(novo);
+
+    return 0;
 }
