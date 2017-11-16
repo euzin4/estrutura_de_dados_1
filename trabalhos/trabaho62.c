@@ -17,12 +17,6 @@ typedef struct _lista{
     TpNodo *first;
     TpNodo *last;
 } TpLista;
-typedef struct _nodoaux{
-    TpProduto info;
-    int nodo;
-    int next;
-    int prev;
-} TpNodoaux;
 
 void selection(TpLista *novo){
     int h,h1,h1min,i,j,atual;
