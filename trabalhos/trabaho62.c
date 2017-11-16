@@ -70,43 +70,51 @@ void selection(TpLista *novo){
                 novo->last->info.preco=preco;
             }
         }
-        system("cls");
+        system("clear");
         printf("Lista ordenada!\n\n");
     }else{
-        system("cls");
+        system("clear");
         printf("Itens insuficientes!\n\n");
     }
     menu(novo);
 }
 void insertion(TpLista *novo){
-    int i,j,esq;
+    int i,j;
+    TpNodo *ant, *atu;
 
     if(novo->nItens > 1){
+        atu=(TpNodo *) malloc(sizeof(TpNodo));
+        ant=(TpNodo *) malloc(sizeof(TpNodo));
         for(i=1;i < novo->nItens;i++){
-            novo->last=novo->first->next;
+            novo->last=novo->first->next;   //vai para o segundo nodo da lista
             for(j=1;j<i;j++){
-                novo->last = novo->last->next;
+                novo->last = novo->last->next;  //passa para o proximo
             }
             while(novo->last->info.codigo < novo->last->prev->info.codigo){
-                //copia de endereços
-                esq=novo->last->prev->prev;   //ponta esquerda
-                //reaponteiramentos
-                novo->last->prev->prev->next=novo->last;
-                novo->last->next->prev=novo->last->prev;
-                novo->last->prev->next=novo->last->next;
-                novo->last->next=novo->last->prev;
-                novo->last->prev->prev=novo->last;
-                novo->last->prev=esq;
-                novo->last = novo->last->prev;  //volta um nodo
+                //copias de endereços
+                atu->next=novo->last->next;
+                atu->prev=novo->last->prev;
+                ant->next=novo->last->prev->next;
+                ant->prev=novo->last->prev->prev;
+                //reaponteiramento
+                novo->last->prev->next=atu->next;
+                novo->last->next->prev=atu->prev;
+                novo->last->next=atu->prev;
+                if(novo->last->prev->prev != NULL){
+                    novo->last->prev->prev->next=ant->next;
+                }
+                novo->last->prev->prev=ant->next;
+                novo->last->prev=ant->prev;
+                //novo->last = novo->last->prev;  //volta um nodo
                 if(novo->last == novo->first){
                     break;
                 }
             }
         }
-        system("cls");
+        system("clear");
         printf("Lista ordenada!\n\n");
     }else{
-        system("cls");
+        system("clear");
         printf("Itens insuficientes!\n\n");
     }
     menu(novo);
@@ -115,7 +123,7 @@ void push(TpLista *novo){
     TpNodo *aux;
     int codigo=0;
 
-    system("cls");
+    system("clear");
     while(codigo == 0){
         printf("Codigo (diferente de zero): ");
         scanf("%d",&codigo);
@@ -135,12 +143,12 @@ void push(TpLista *novo){
     novo->last->next=NULL;
     novo->last->info.codigo=0;
     novo->nItens+=1;
-    system("cls");
+    system("clear");
     menu(novo);
 }
 void display(TpLista *novo){
     int i=0;
-    system("cls");
+    system("clear");
     novo->last=novo->first;
     if(novo->last->next==NULL){
         printf("Lista vazia!\n\n");
@@ -162,7 +170,7 @@ void pop(TpLista *novo){
     TpNodo *ant;
     TpNodo *auxi;
 
-    system("cls");
+    system("clear");
     if(novo->first->next==NULL){
         printf("Lista vazia!\n\n");
     }else{
@@ -172,7 +180,7 @@ void pop(TpLista *novo){
             novo->first=novo->first->next;
             novo->first->prev=NULL;
             novo->nItens-=1;
-            system("cls");
+            system("clear");
             printf("Item excluido!\n\n");
         }else{
             novo->last=novo->first;
@@ -185,10 +193,10 @@ void pop(TpLista *novo){
                 auxi=novo->last->next;
                 auxi->prev=novo->last->prev;
                 novo->nItens-=1;
-                system("cls");
+                system("clear");
                 printf("Item excluido!\n\n");
             }else{
-                system("cls");
+                system("clear");
                 printf("Este item nao esta na lista!\n\n");
             }
         }
@@ -227,7 +235,7 @@ void menu(TpLista *novo){
         printf("\nAte logo!");
         break;
     default:
-        system("cls");
+        system("clear");
         printf("Opcao invalida!\n\n");
         menu(novo);
     }
