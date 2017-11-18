@@ -64,27 +64,27 @@ void selection(TpLista *novo){
                 novo->last->info.preco=preco;
             }
         }
-        system("clear");
+        system("cls");
         printf("Lista ordenada!\n\n");
     }else{
-        system("clear");
+        system("cls");
         printf("Itens insuficientes!\n\n");
     }
     menu(novo);
 }
 void insertion(TpLista *novo){
     int i,j;
-    TpNodo *ant, *atu;
+    TpNodo *ant,*atu;
 
     if(novo->nItens > 1){
         atu=(TpNodo *) malloc(sizeof(TpNodo));
         ant=(TpNodo *) malloc(sizeof(TpNodo));
         for(i=1;i < novo->nItens;i++){
-            novo->last=novo->first->next;   //vai para o segundo nodo da lista
+            novo->last=novo->first->next;   //inicia no segundo nodo da lista
             for(j=1;j<i;j++){
-                novo->last = novo->last->next;  //passa para o proximo
+                novo->last = novo->last->next;  //passa para o nodo de testes
             }
-            while(novo->last->info.codigo < novo->last->prev->info.codigo){
+            while(novo->last->info.codigo < novo->last->prev->info.codigo && novo->last->prev->info.codigo!=NULL){
                 //copias de endereços
                 atu->next=novo->last->next;
                 atu->prev=novo->last->prev;
@@ -94,21 +94,22 @@ void insertion(TpLista *novo){
                 novo->last->prev->next=atu->next;
                 novo->last->next->prev=atu->prev;
                 novo->last->next=atu->prev;
+                //após o reaponteiramento o nodo atual vai uma "casa" para trás
                 if(novo->last->prev->prev != NULL){
                     novo->last->prev->prev->next=ant->next;
                 }
                 novo->last->prev->prev=ant->next;
                 novo->last->prev=ant->prev;
-                //novo->last = novo->last->prev;  //volta um nodo
-                if(novo->last == novo->first){
+                if(novo->last->prev == NULL){
+                    novo->first=novo->last;
                     break;
                 }
             }
         }
-        system("clear");
+        system("cls");
         printf("Lista ordenada!\n\n");
     }else{
-        system("clear");
+        system("cls");
         printf("Itens insuficientes!\n\n");
     }
     menu(novo);
@@ -117,7 +118,7 @@ void push(TpLista *novo){
     TpNodo *aux;
     int codigo=0;
 
-    system("clear");
+    system("cls");
     while(codigo == 0){
         printf("Codigo (diferente de zero): ");
         scanf("%d",&codigo);
@@ -137,12 +138,12 @@ void push(TpLista *novo){
     novo->last->next=NULL;
     novo->last->info.codigo=0;
     novo->nItens+=1;
-    system("clear");
+    system("cls");
     menu(novo);
 }
 void display(TpLista *novo){
     int i=0;
-    system("clear");
+    system("cls");
     novo->last=novo->first;
     if(novo->last->next==NULL){
         printf("Lista vazia!\n\n");
@@ -164,7 +165,7 @@ void pop(TpLista *novo){
     TpNodo *ant;
     TpNodo *auxi;
 
-    system("clear");
+    system("cls");
     if(novo->first->next==NULL){
         printf("Lista vazia!\n\n");
     }else{
@@ -174,7 +175,7 @@ void pop(TpLista *novo){
             novo->first=novo->first->next;
             novo->first->prev=NULL;
             novo->nItens-=1;
-            system("clear");
+            system("cls");
             printf("Item excluido!\n\n");
         }else{
             novo->last=novo->first;
@@ -187,10 +188,10 @@ void pop(TpLista *novo){
                 auxi=novo->last->next;
                 auxi->prev=novo->last->prev;
                 novo->nItens-=1;
-                system("clear");
+                system("cls");
                 printf("Item excluido!\n\n");
             }else{
-                system("clear");
+                system("cls");
                 printf("Este item nao esta na lista!\n\n");
             }
         }
@@ -229,7 +230,7 @@ void menu(TpLista *novo){
         printf("\nAte logo!");
         break;
     default:
-        system("clear");
+        system("cls");
         printf("Opcao invalida!\n\n");
         menu(novo);
     }
