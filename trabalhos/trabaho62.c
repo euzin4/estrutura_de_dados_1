@@ -20,29 +20,29 @@ typedef struct _lista{
 
 void selection(TpLista *novo){
     int h,h1,h1min,i,j,atual;
-    int min,auxcod;
-    char nome[20],auxnome[20];
-    float preco,auxpreco;
+    int min,proximo;
+    TpNodo atu,men;
 
     if(novo->nItens > 1){
         for (i=0; i < novo->nItens-1;i++){
             novo->last=novo->first;
-            for(h=0;h<i;h++){   //volta para o nodo que esta sendo testado
+            for(h=0;h<i;h++){   //vai para o nodo que será testado
                 novo->last=novo->last->next;
             }
-            min=novo->last->info.codigo;    //copia os dados do nodo atual
-            strcpy(nome,novo->last->info.nome);
-            preco=novo->last->info.preco;
+            //copia os dados do nodo atual
+            min=novo->last->info.codigo;
+            atu.next=novo->last->next;
+            atu.prev=novo->last->prev;
             for (j=(i+1);j < novo->nItens;j++){
                 novo->last=novo->first;
-                for(h1=0;h1<j;h1++){    //passa pelos nodos para achar o menor valor
+                for(h1=0;h1<j;h1++){    //passa pelos nodos para achar o menor codigo
                     novo->last = novo->last->next;
                 }
-                auxcod=novo->last->info.codigo;
-                if(auxcod < min){   //copia os dados do nodo com codigo menor
-                    min=auxcod;
-                    strcpy(auxnome,novo->last->info.nome);
-                    auxpreco=novo->last->info.preco;
+                proximo=novo->last->info.codigo;
+                if(proximo < min){   //copia os dados do nodo com codigo menor
+                    min=proximo;
+                    men.next=novo->last->next;
+                    men.prev=novo->last->prev;
                     h1min=h1;
                 }
             }
@@ -51,17 +51,34 @@ void selection(TpLista *novo){
                 novo->last=novo->last->next;
             }
             atual=novo->last->info.codigo;
-            if (atual != min){  //passa os valores do menor codigo para o nodo atual
-                novo->last->info.codigo=min;
-                strcpy(novo->last->info.nome,auxnome);
-                novo->last->info.preco=auxpreco;
-                novo->last=novo->first;
-                for(h=0;h<h1min;h++){
-                    novo->last=novo->last->next;
-                }   //passa os dados do nodo atual para onde estava o menor codigo
-                novo->last->info.codigo=atual;
-                strcpy(novo->last->info.nome,nome);
-                novo->last->info.preco=preco;
+            if (atual != min){  //faz o reaponteiramento dos nodos
+                if(men.prev == novo->last){ //caso os nodos estejam um ao lado do outro
+                    if(atu.next->prev == novo->first){  //caso o nodo a ser reaponteirado for o primeiro da lista
+                        novo->first=men.next->prev;
+                    }
+                    if(atu.prev != NULL){
+                        atu.prev->next=atu.next;
+                    }
+                    men.prev->prev=atu.next;
+                    atu.next->next=men.prev;
+                    men.next->prev=men.prev;
+                    men.prev->next=men.next;
+                    atu.next->prev=atu.prev;
+                }else{  //caso os nodos não estejam um ao lado do outro
+                    if(atu.next->prev == novo->first){  //caso o nodo a ser reaponteirado for o primeiro da lista
+                        novo->first=men.next->prev;
+                    }
+                    if(atu.prev != NULL){
+                        atu.prev->next=men.next->prev;
+                    }
+                    atu.next->prev->prev=men.prev;
+                    atu.next->prev->next=men.next;
+                    atu.next->prev=men.next->prev;
+                    men.prev->next=novo->last;
+                    men.next->prev->prev=atu.prev;
+                    men.next->prev->next=atu.next;
+                    men.next->prev=novo->last;
+                }
             }
         }
         system("cls");
@@ -74,11 +91,9 @@ void selection(TpLista *novo){
 }
 void insertion(TpLista *novo){
     int i,j;
-    TpNodo *ant,*atu;
+    TpNodo ant,atu;
 
     if(novo->nItens > 1){
-        atu=(TpNodo *) malloc(sizeof(TpNodo));
-        ant=(TpNodo *) malloc(sizeof(TpNodo));
         for(i=1;i < novo->nItens;i++){
             novo->last=novo->first->next;   //inicia no segundo nodo da lista
             for(j=1;j<i;j++){
@@ -86,20 +101,20 @@ void insertion(TpLista *novo){
             }
             while(novo->last->info.codigo < novo->last->prev->info.codigo && novo->last->prev->info.codigo!=NULL){
                 //copias de endereços
-                atu->next=novo->last->next;
-                atu->prev=novo->last->prev;
-                ant->next=novo->last->prev->next;
-                ant->prev=novo->last->prev->prev;
+                atu.next=novo->last->next;
+                atu.prev=novo->last->prev;
+                ant.next=novo->last->prev->next;
+                ant.prev=novo->last->prev->prev;
                 //reaponteiramento
-                novo->last->prev->next=atu->next;
-                novo->last->next->prev=atu->prev;
-                novo->last->next=atu->prev;
-                //após o reaponteiramento o nodo atual vai uma "casa" para trás
+                novo->last->prev->next=atu.next;
+                novo->last->next->prev=atu.prev;
+                novo->last->next=atu.prev;
                 if(novo->last->prev->prev != NULL){
-                    novo->last->prev->prev->next=ant->next;
+                    novo->last->prev->prev->next=ant.next;
                 }
-                novo->last->prev->prev=ant->next;
-                novo->last->prev=ant->prev;
+                novo->last->prev->prev=ant.next;
+                novo->last->prev=ant.prev;
+                //após o reaponteiramento o nodo atual vai uma "casa" para trás
                 if(novo->last->prev == NULL){
                     novo->first=novo->last;
                     break;
