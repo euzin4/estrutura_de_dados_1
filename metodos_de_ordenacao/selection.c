@@ -3,14 +3,13 @@
 
 void selection(int *vet, int tam) {
   int i, j, min, aux;
-  for (i = 0; i < (tam-1); i++)
-  {
+  for (i = 0; i < (tam-1); i++){
      min = i;
-     for (j = (i+1); j < tam; j++) {
+     for (j = (i+1); j < tam; j++){
        if(vet[j] < vet[min])
          min = j;
      }
-     if (vet[i] != vet[min]) {
+     if (vet[i] != vet[min]){
        aux = vet[i];
        vet[i] = vet[min];
        vet[min] = aux;
@@ -26,8 +25,7 @@ void display(int *vet){
     printf("\n");
 }
 
-int main()
-{
+int main(){
     int vet[5]={3,7,1,8,1};
     int tam=5;
 
