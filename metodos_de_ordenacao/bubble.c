@@ -19,8 +19,7 @@ void bubble(int *vet){
 void display(int *vet){
     int i;
 
-    for(i=0; i<6; i++)
-    {
+    for(i=0; i<6; i++){
         printf("%d ",vet[i]);
     }
     printf("\n");
