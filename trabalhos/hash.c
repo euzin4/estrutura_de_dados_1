@@ -35,7 +35,7 @@ void display(lista *lst){
     printf("3-Listar vetor completo\n");
     scanf("%d",&opc);
     switch(opc){
-        case 1:
+        case 1: //busca a posiçao do valor dentro do vetor
             system("cls");
             printf("Digite o valor: ");
             scanf("%d",&val);
@@ -43,7 +43,7 @@ void display(lista *lst){
             lst->nodo[pos]=lst->inicio[pos];
             while(lst->nodo[pos]->chave!=-1){
                 if(lst->nodo[pos]->chave==val)
-                    verif=1;
+                    verif=1;    //se o valor buscado estiver no vetor verif recebe 1
                 lst->nodo[pos]=lst->nodo[pos]->next;
             }
             if(verif==1)
@@ -51,14 +51,14 @@ void display(lista *lst){
             if(verif==0)
                 printf("Valor nao encontrado!\n\n");
         break;
-        case 2:
+        case 2: //lista os dados dentro de uma certa posiçao do vetor
             system("cls");
             printf("Digite a posicao: ");
             scanf("%d",&pos);
             lst->nodo[pos]=lst->inicio[pos];
             while(lst->nodo[pos]->chave!=-1){
                 if(lst->nodo[pos]->chave!=-1)
-                    verif=1;
+                    verif=1;    //se a posiçao do vetor nao estiver vazia verif recebe 1
                 lst->nodo[pos]=lst->nodo[pos]->next;
             }
             if(verif==0){
@@ -75,7 +75,7 @@ void display(lista *lst){
             printf("\n\n");
             }
         break;
-        case 3:
+        case 3: //lista todos os dados de todas as posiçoes do vetor
             system("cls");
             for(i=0;i<Tam;i++){
                 lst->nodo[i]=lst->inicio[i];
